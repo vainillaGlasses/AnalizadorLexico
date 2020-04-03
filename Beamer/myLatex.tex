@@ -1,0 +1,45 @@
+\documentclass[xcolor=table]{beamer}
+\usetheme{JUB}
+\usepackage{pgfplots}\pgfplotsset{width=6cm,compat=1.8}\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}
+\usefonttheme{professionalfonts}
+\usepackage{libertine}
+\renewcommand{\ttdefault}{cmtt}
+\usepackage[scaled]{helvet}
+\usepackage{hyperref}
+\hypersetup{pdfpagemode=FullScreen}
+\definecolor{Constant}{HTML}{3D9299}\definecolor{EndOfFile}{HTML}{E8FF92}\definecolor{Error}{HTML}{FF4C00}\definecolor{Identifier}{HTML}{00FF85}\definecolor{Keyword}{HTML}{FF404F}\definecolor{Operator}{HTML}{FFEA40}\definecolor{Punctuator}{HTML}{DA40FF}\definecolor{Stringlit}{HTML}{14BDCC}\definecolor{Type}{HTML}{CC147F}\definecolor{Whitespace}{HTML}{B2FFF2}\definecolor{backColor}{HTML}{37403C}\pgfplotscreateplotcyclelist{mycolorlist}{{Constant},{EndOfFile},{Error},{Identifier},{Keyword},{Operator},{Punctuator},{Stringlit},{Type},{Whitespace},}
+\title{Analizador Léxico}
+\subtitle{Proyecto No 1}
+\author{Kevin Lobo, Samantha Arburola, V\'ictor Chaves}
+\institute{Semestre I 2017 \linebreak Compiladores e Int\'erpretes\linebreak Ingenier\'ia en Compitaci\'on}
+\date{\today}
+\begin{document}
+\begin{frame}[plain,t] \titlepage \end{frame}
+\begin{frame} \frametitle{Tokens}
+\begin{table}[] \centering \begin{tabular}{lllll}\multicolumn{5}{c}{\cellcolor[HTML]{680100}{\color[HTML]{68CBD0} {\sc \textbf{Tokens}}}}\\Keyword&Type&Identifier&Constant&Stringlit\\Operator&Punctuator&Whitespace&End of Line&Error\end{tabular}\end{table}\end{frame}
+\begin{frame} \frametitle{FileName.h}
+ \tiny \tt 
+\color{white}\colorbox[HTML]{CC147F}{int}\colorbox[HTML]{B2FFF2}{\textvisiblespace}\color{violet}\colorbox[HTML]{00FF85}{main}\color{blue}\bf\colorbox[HTML]{DA40FF}{(}\color{blue}\bf\colorbox[HTML]{DA40FF}{)}\color{blue}\bf\colorbox[HTML]{DA40FF}{\{}\linebreak
+\colorbox[HTML]{B2FFF2}{ }\colorbox[HTML]{B2FFF2}{\textvisiblespace\textvisiblespace\textvisiblespace\textvisiblespace}\color{violet}\colorbox[HTML]{00FF85}{creatéLatex}\color{blue}\bf\colorbox[HTML]{DA40FF}{(}\color{blue}\bf\colorbox[HTML]{DA40FF}{)}\color{blue}\bf\colorbox[HTML]{DA40FF}{;}\linebreak
+\colorbox[HTML]{B2FFF2}{ }\colorbox[HTML]{B2FFF2}{\textvisiblespace\textvisiblespace\textvisiblespace\textvisiblespace}\color{white}\colorbox[HTML]{CC147F}{int}\colorbox[HTML]{B2FFF2}{\textvisiblespace}\color{violet}\colorbox[HTML]{00FF85}{a}\colorbox[HTML]{B2FFF2}{\textvisiblespace}\color{black}\bf\colorbox[HTML]{FFEA40}{\tt +}\colorbox[HTML]{B2FFF2}{\textvisiblespace}\color{white}\colorbox[HTML]{3D9299}{2}\color{blue}\bf\colorbox[HTML]{DA40FF}{;}\linebreak
+\colorbox[HTML]{B2FFF2}{ }\colorbox[HTML]{B2FFF2}{\textvisiblespace\textvisiblespace\textvisiblespace\textvisiblespace}\color{blue}\bf\colorbox[HTML]{DA40FF}{'}\color{yellow}\colorbox[HTML]{14BDCC}{Im a String}\color{blue}\bf\colorbox[HTML]{DA40FF}{"}\linebreak
+\colorbox[HTML]{B2FFF2}{ }\colorbox[HTML]{B2FFF2}{\textvisiblespace\textvisiblespace\textvisiblespace\textvisiblespace}\color{blue}\colorbox[HTML]{FF404F}{return}\color{white}\colorbox[HTML]{3D9299}{0}\color{blue}\bf\colorbox[HTML]{DA40FF}{;}\color{blue}\bf\colorbox[HTML]{DA40FF}{\}}\linebreak
+\colorbox[HTML]{B2FFF2}{ }\colorbox[HTML]{B2FFF2}{\textvisiblespace\textvisiblespace\textvisiblespace\textvisiblespace}\color{darkgray}\colorbox[HTML]{E8FF92}{addEndOfFile}\linebreak
+\colorbox[HTML]{B2FFF2}{ }\color[HTML]{19FFDF}\bf\colorbox[HTML]{FF4C00}{File no close}
+\end{frame}
+\begin{frame}\begin{tikzpicture}\begin{axis}[axis background/.style={fill=backColor},ybar,ymin=0,x=0.43cm,bar width=4mm,enlargelimits=0.8,ylabel={Cantidad},xlabel={Tokens},symbolic x coords={Constant,EndOfFile,Error,Identifier,Keyword,Operator,Punctuator,Stringlit,Type,Whitespace},ticks=none, nodes near coords,nodes near coords align={vertical},ymajorgrids=true,grid style=dashed,legend style={font=\tiny,at={(0.5,-0.15)},anchor=north,legend columns=5}]
+\pgfplotsset{compat=1.10,width=6cm, cycle list name = mycolorlist};
+\addplot+[fill] coordinates {(Constant,345)};
+\addplot+[fill] coordinates {(EndOfFile,643)};
+\addplot+[fill] coordinates {(Error,445)};
+\addplot+[fill] coordinates {(Identifier,654)};
+\addplot+[fill] coordinates {(Keyword,233)};
+\addplot+[fill] coordinates {(Operator,456)};
+\addplot+[fill] coordinates {(Punctuator,657)};
+\addplot+[fill] coordinates {(Stringlit,718)};
+\addplot+[fill] coordinates {(Type,345)};
+\addplot+[fill] coordinates {(Whitespace,567)};
+\legend {Constant, EndOfFile, Error, Identifier, Keyword, Operator, Punctuator, Stringlit, Type, Whitespace}\end{axis}\end{tikzpicture}\end{frame}
+\end{document}

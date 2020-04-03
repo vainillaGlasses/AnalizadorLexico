@@ -1,0 +1,95 @@
+\documentclass{beamer}
+\usepackage{pgfplots,pgfplotstable}
+\pgfplotsset{compat=1.4}
+\usetikzlibrary{pgfplots.groupplots}
+
+\pgfplotstableread{
+Criterion   Rapperswil  Palermo Jeddah
+Turquoise       3620        15749       42754
+Yellow      2739        15109       42240
+Purple      3710        16146       40533
+Red           714         9306      28919
+Blue        2997          6840  11614
+Orange      1589          4992  11786
+Green       2122        11154   28747
+}\datatable
+
+\definecolor{RYB1}{RGB}{141, 211, 199}
+\definecolor{RYB2}{RGB}{255, 255, 179}
+\definecolor{RYB3}{RGB}{190, 186, 218}
+\definecolor{RYB4}{RGB}{251, 128, 114}
+\definecolor{RYB5}{RGB}{128, 177, 211}
+\definecolor{RYB6}{RGB}{253, 180, 98}
+\definecolor{RYB7}{RGB}{179, 222, 105}
+
+\pgfplotscreateplotcyclelist{colorbrewer-RYB}{
+{RYB1!50!black,fill=RYB1},
+{RYB2!50!black,fill=RYB2},
+{RYB3!50!black,fill=RYB3},
+{RYB4!50!black,fill=RYB4},
+{RYB5!50!black,fill=RYB5},
+{RYB6!50!black,fill=RYB6},
+{RYB7!50!black,fill=RYB7},
+}
+
+\pgfplotsset{
+    select row/.style={
+        x filter/.code={\ifnum\coordindex=#1\else\def\pgfmathresult{}\fi}
+    }
+}
+
+\begin{document}
+
+
+\begin{figure}[hbt!]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}
+    [
+        group style=
+            {
+            columns=3,
+            xlabels at=edge bottom,
+            ylabels at=edge left,
+            horizontal sep=0.05\textwidth, group name=plots
+            },
+        ybar=0pt,
+        /pgf/bar shift=0pt,scale only axis,
+        width=0.74\textwidth/3,
+        yticklabel style={text width=0.035\textwidth, align=right, inner xsep=0pt, xshift=-0.005\textwidth},
+        ylabel=kWh, ylabel style={text height=0.02\textwidth,inner ysep=0pt},
+        enlarge x limits=0.15,
+        ymin=0,
+        xtick=\empty,
+        tickpos=left,
+        scaled y ticks=base 10:-3,
+        cycle list name=colorbrewer-RYB,
+        legend columns=-1,
+        legend style={draw=none, /tikz/every even column/.append style={column sep=5pt}},
+        legend image code/.code={%
+             \draw[#1] (0cm,-0.1cm) rectangle (0.3cm,0.1cm);
+        }
+    ]
+
+\nextgroupplot[xlabel=Rapperswil, legend to name=grouplegend,]
+\pgfplotsinvokeforeach  {0,...,6}{
+    \addplot table [ x expr=\coordindex, select row=#1, y=Rapperswil] {\datatable};
+    \addlegendentry {\pgfplotstablegetelem{#1}{Criterion}\of\datatable \pgfplotsretval}
+}
+
+\nextgroupplot[xlabel=Palermo]
+\pgfplotsinvokeforeach  {0,...,6}{
+    \addplot table [x expr=\coordindex, select row=#1, y=Palermo] {\datatable};
+}
+
+\nextgroupplot[xlabel=Jeddah]
+\pgfplotsinvokeforeach  {0,...,6}{
+    \addplot table [x expr=\coordindex, select row=#1, y=Jeddah] {\datatable};
+}
+
+\end{groupplot}
+\node at (plots c2r1.south) [inner sep=0pt,anchor=north, yshift=-5ex] {\ref{grouplegend}};
+\end{tikzpicture}
+\end{figure}
+\end{document}
+

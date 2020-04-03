@@ -1,0 +1,7 @@
+Para utilizar el analizador léxico realice lo siguiente:
+
+0) En consola ejecute make para compilar.
+1) Copie en la carpeta actual el o los archivos que desea escanear.
+2) En consola ejecute ./scanner nombreArchivo
+3) Una vez realizado el análisis léxico se mostrará automáticamente en pantalla
+   la presentación beamer con los tokens resaltados.
